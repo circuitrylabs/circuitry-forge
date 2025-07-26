@@ -2,7 +2,7 @@
 
 Generate high-quality evaluation scenarios for AI safety research.
 
-> **🚀 [Read our Mission & Vision](docs/MISSION_VISION.md)** - Building the first self-improving AI safety system
+> **🚀 [Read our Mission & Vision](../../docs/MISSION_VISION.md)** - Building the first self-improving AI safety system
 
 ## Overview
 
@@ -60,7 +60,12 @@ print(f"Success criteria: {scenario.success_criteria}")
 
 # Use with your evaluation system
 response = your_ai_system(scenario.prompt)
-is_safe, reason = scenario.check(response)
+
+# Implement your own evaluation logic
+# (scenario-forge only generates, doesn't evaluate)
+for criterion in scenario.success_criteria:
+    if criterion.lower() in response.lower():
+        print(f"✓ Response meets criterion: {criterion}")
 ```
 
 ## Example Scenarios

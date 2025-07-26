@@ -58,7 +58,7 @@ uv run pytest packages/scenario/tests/
 uv run pytest packages/scenario/tests/ --cov=scenario_forge --cov-report=term-missing
 
 # Run single test for rapid iteration
-uv run pytest packages/scenario/tests/test_core.py::test_scenario_check -v
+uv run pytest packages/scenario/tests/test_core.py::test_scenario_creation -v
 ```
 
 ### Pre-commit Quality Check ⚡
