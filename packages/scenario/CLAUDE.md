@@ -16,12 +16,14 @@ scenario-forge generates high-quality evaluation scenarios for AI safety researc
 ## Architecture Boundaries
 
 ### What scenario-forge IS:
-- A scenario generation engine for AI safety evaluation
-- A multi-backend LLM orchestrator for comparative analysis
-- A structured data exporter for research pipelines
-- A teaching tool for understanding AI behavior
+- A pure scenario generation tool following Unix philosophy
+- A multi-backend LLM orchestrator for scenario creation
+- A structured data exporter (JSON, CSV, HuggingFace)
+- A component in the AI safety evaluation pipeline
 
 ### What scenario-forge IS NOT:
+- An evaluation or judging system (that's for downstream tools)
+- A criteria extraction/analysis tool (that's for prism-forge)
 - A general-purpose prompt engineering tool
 - A red-teaming/adversarial attack framework
 - A benchmark gaming system
