@@ -1,0 +1,42 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.13"]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: uv sync
+    
+    - name: Lint with ruff
+      run: |
+        uvx ruff format . --check
+        uvx ruff check .
+    
+    - name: Type check
+      run: uvx ty
+      continue-on-error: true  # ty is preview
+    
+    - name: Test with pytest
+      run: uv run pytest packages/scenario/tests/ -v --cov=scenario_forge --cov-report=term-missing

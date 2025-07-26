@@ -1,0 +1,63 @@
+[project]
+name = "scenario-forge"
+version = "0.1.0"
+description = "Generate high-quality evaluation scenarios for AI safety research"
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" }
+authors = [
+    { name = "Circuitry Labs", email = "hello@circuitrylabs.org" }
+]
+keywords = ["ai-safety", "evaluation", "scenario-generation", "llm", "testing"]
+dependencies = [
+    "click>=8.2.1",
+    "httpx>=0.28.1",
+    "ollama>=0.5.1",
+    "pyyaml>=6.0.2",
+    "rich>=14.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/circuitrylabs/scenario-forge"
+Documentation = "https://github.com/circuitrylabs/scenario-forge/tree/main/docs"
+Repository = "https://github.com/circuitrylabs/scenario-forge"
+Issues = "https://github.com/circuitrylabs/scenario-forge/issues"
+
+[project.scripts]
+scenario-forge = "scenario_forge.cli:cli"
+
+[build-system]
+requires = ["uv_build>=0.8.0,<0.9"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--cov=scenario_forge",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-fail-under=75",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+fail_under = 75
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "@abstractmethod",
+]
