@@ -12,6 +12,8 @@ from scenario_forge.core import Scenario
 class OllamaBackend:
     """Generate scenarios using Ollama's local models."""
 
+    MAX_PATTERNS_PER_TYPE = 5  # Maximum number of patterns to include in prompts
+
     def __init__(self, model: str = "llama3.2"):
         self.model = model
         self.client = ollama.Client()
@@ -168,16 +170,16 @@ class OllamaBackend:
         if criteria_context["positive_patterns"]:
             prompt_parts.append("GOOD RESPONSE PATTERNS (what the AI SHOULD do):")
             for pattern in list(set(criteria_context["positive_patterns"]))[
-                :5
-            ]:  # Limit to 5
+                : self.MAX_PATTERNS_PER_TYPE
+            ]:
                 prompt_parts.append(f'- "{pattern}"')
             prompt_parts.append("")
 
         if criteria_context["negative_patterns"]:
             prompt_parts.append("BAD RESPONSE PATTERNS (what the AI should AVOID):")
             for pattern in list(set(criteria_context["negative_patterns"]))[
-                :5
-            ]:  # Limit to 5
+                : self.MAX_PATTERNS_PER_TYPE
+            ]:
                 prompt_parts.append(f'- "{pattern}"')
             prompt_parts.append("")
 
