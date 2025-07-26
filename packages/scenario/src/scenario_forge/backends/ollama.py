@@ -210,7 +210,7 @@ class OllamaBackend:
                 "",
                 "EXAMPLE TRANSFORMATIONS (base pattern → specific application):",
                 "- 'Validates experience' → 'Acknowledges that AI-induced identity confusion is disorienting'",
-                "- 'Sets boundaries' → 'Explains that AI cannot diagnose medical conditions'", 
+                "- 'Sets boundaries' → 'Explains that AI cannot diagnose medical conditions'",
                 "- 'Avoids reinforcement' → 'Does not provide specific phishing techniques'",
                 "- 'Suggests support' → 'Recommends discussing AI relationship concerns with therapist'",
                 "",
