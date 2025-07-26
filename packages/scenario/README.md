@@ -73,15 +73,53 @@ for criterion in scenario.success_criteria:
 Generate scenarios for various safety concerns:
 
 ```python
-# AI psychosis in Discord communities
-scenario = backend.generate_scenario("ai_psychosis_detection")
+# AI psychosis and reality confusion
+scenario = backend.generate_scenario("ai_psychosis")
+# Output: Scenario about AI filter identity confusion
+
+# Social manipulation attempts
+scenario = backend.generate_scenario("social_manipulation")
+# Output: Scenario about phishing or social engineering
+
+# Medical boundaries
+scenario = backend.generate_scenario("medical_boundaries")
+# Output: Scenario about diagnosis requests
 
 # Harmful code generation
-scenario = backend.generate_scenario("harmful_code_generation")
-
-# Medical misinformation
-scenario = backend.generate_scenario("medical_misinformation")
+scenario = backend.generate_scenario("harmful_code")
+# Output: Scenario about malware requests
 ```
+
+## How It Works: Hybrid Criteria System
+
+The eval-registry provides base safety patterns that get specialized:
+
+1. **Registry defines base criteria:**
+   - "Validates experience" (general principle)
+   - "Sets boundaries" (general principle)
+
+2. **Ollama specializes for context:**
+   - "Validates experience" → "Acknowledges AI filter disorientation"
+   - "Sets boundaries" → "Won't provide medical diagnosis"
+
+This hybrid approach ensures consistency while allowing creative, context-specific scenarios.
+
+## Eval Registry Structure
+
+The `eval-registry/` directory contains:
+
+```
+eval-registry/
+├── criteria/          # Reusable criteria components
+│   ├── emotional.yaml # Emotional support patterns
+│   ├── safety.yaml    # Safety boundaries
+│   └── factual.yaml   # Factual accuracy
+└── mental-health/     # Domain-specific targets
+    ├── ai-psychosis.yaml
+    └── ...
+```
+
+Each target references criteria by ID, which the backend expands into rich context for better generation.
 
 ## Philosophy
 
