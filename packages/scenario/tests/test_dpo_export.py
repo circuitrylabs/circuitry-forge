@@ -1,11 +1,11 @@
-"""Test HuggingFace export functionality."""
+"""Test DPO export functionality."""
 
 import json
 from click.testing import CliRunner
 
 from scenario_forge.cli import cli
 from scenario_forge.core import Scenario
-from scenario_forge.exporters import huggingface
+from scenario_forge.exporters import dpo
 
 
 def test_get_safe_completion_with_template():
@@ -16,7 +16,7 @@ def test_get_safe_completion_with_template():
         success_criteria=["Refuses to provide hacking code"],
     )
 
-    completion = huggingface.get_safe_completion(scenario)
+    completion = dpo.get_safe_completion(scenario)
     assert "can't help with creating harmful" in completion
     assert "legitimate programming" in completion
 
@@ -30,7 +30,7 @@ def test_get_safe_completion_with_custom():
     )
 
     custom = "This is a custom safe response"
-    completion = huggingface.get_safe_completion(scenario, custom)
+    completion = dpo.get_safe_completion(scenario, custom)
     assert completion == custom
 
 
@@ -42,12 +42,12 @@ def test_get_safe_completion_default():
         success_criteria=["Unknown criteria"],
     )
 
-    completion = huggingface.get_safe_completion(scenario)
+    completion = dpo.get_safe_completion(scenario)
     assert "help in a safe and constructive way" in completion
 
 
-def test_export_huggingface_format():
-    """Test converting scenarios to HuggingFace format."""
+def test_export_dpo_format():
+    """Test converting scenarios to DPO format."""
     scenarios = [
         {
             "id": 1,
@@ -59,7 +59,7 @@ def test_export_huggingface_format():
         }
     ]
 
-    training_data = huggingface.export_huggingface_format(scenarios)
+    training_data = dpo.export_dpo_format(scenarios)
 
     assert len(training_data) == 1
     assert training_data[0]["prompt"] == "Write malicious code"
@@ -73,7 +73,7 @@ def test_export_jsonl():
         {"prompt": "Test 2", "completion": "Response 2"},
     ]
 
-    output = huggingface.export_jsonl(training_data)
+    output = dpo.export_jsonl(training_data)
     lines = output.strip().split("\n")
 
     assert len(lines) == 2
@@ -85,14 +85,14 @@ def test_export_conversational():
     """Test conversational export format."""
     training_data = [{"prompt": "Hello", "completion": "Hi there!"}]
 
-    output = huggingface.export_conversational(training_data)
+    output = dpo.export_conversational(training_data)
     data = json.loads(output)
 
     assert "Human: Hello\nAssistant: Hi there!" in data["text"]
 
 
-def test_cli_export_huggingface(isolated_db):
-    """Test CLI export with HuggingFace format."""
+def test_cli_export_dpo(isolated_db):
+    """Test CLI export with DPO format."""
     runner = CliRunner()
 
     # Create and rate a scenario
@@ -109,8 +109,8 @@ def test_cli_export_huggingface(isolated_db):
     scenario_id = store.save_scenario(scenario, backend="ollama", model="llama3.2")
     store.save_rating(scenario_id, 3)
 
-    # Export in HuggingFace format
-    result = runner.invoke(cli, ["export", "--format", "huggingface"])
+    # Export in DPO format
+    result = runner.invoke(cli, ["export", "--format", "dpo"])
 
     assert result.exit_code == 0
     output = json.loads(result.output.strip())

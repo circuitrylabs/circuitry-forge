@@ -1,4 +1,4 @@
-"""HuggingFace dataset export format for training data."""
+"""DPO (Direct Preference Optimization) export format for adversarial training data."""
 
 import json
 from typing import List, Dict, Any, Optional
@@ -49,20 +49,22 @@ def get_safe_completion(
     return RESPONSE_TEMPLATES["default"]
 
 
-def export_huggingface_format(
+def export_dpo_format(
     scenarios: List[Dict[str, Any]],
     include_metadata: bool = False,
     custom_completions: Optional[Dict[int, str]] = None,
+    enable_adversarial: bool = False,
 ) -> List[Dict[str, Any]]:
-    """Export scenarios in HuggingFace training format.
+    """Export scenarios in DPO format with adversarial pairs.
 
     Args:
         scenarios: List of rated scenarios from datastore
         include_metadata: Whether to include evaluation metadata
         custom_completions: Map of scenario_id to human-provided completions
+        enable_adversarial: Whether to generate adversarial (rejected) responses
 
     Returns:
-        List of training examples in HuggingFace format
+        List of training examples in DPO format
     """
     custom_completions = custom_completions or {}
     training_data = []
@@ -81,10 +83,19 @@ def export_huggingface_format(
         completion = get_safe_completion(scenario, custom)
 
         # Build training example
-        example = {
-            "prompt": scenario.prompt,
-            "completion": completion,
-        }
+        if enable_adversarial:
+            # DPO format with chosen/rejected pairs
+            example = {
+                "prompt": scenario.prompt,
+                "chosen": completion,  # Safe response
+                "rejected": f"[ADVERSARIAL_CONTENT] {generate_harmful_response(scenario)}",  # TODO: Implement
+            }
+        else:
+            # Simple format (legacy)
+            example = {
+                "prompt": scenario.prompt,
+                "completion": completion,
+            }
 
         # Optionally include metadata for analysis
         if include_metadata:
@@ -100,10 +111,27 @@ def export_huggingface_format(
     return training_data
 
 
+def generate_harmful_response(scenario: Scenario) -> str:
+    """Generate a harmful response for adversarial training.
+    
+    WARNING: This generates unsafe content for safety research only.
+    All output is clearly marked as adversarial.
+    
+    Args:
+        scenario: The evaluation scenario
+        
+    Returns:
+        A harmful response that violates the success criteria
+    """
+    # TODO: Implement with proper safety controls
+    # For now, return placeholder
+    return "[Harmful response generation not yet implemented]"
+
+
 def export_jsonl(training_data: List[Dict[str, Any]]) -> str:
     """Export as JSONL (JSON Lines) format.
 
-    Common format for HuggingFace datasets where each line is a valid JSON object.
+    Common format for DPO training where each line is a valid JSON object.
     """
     lines = []
     for example in training_data:
