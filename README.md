@@ -1,6 +1,6 @@
+<h1 align="center">🔬 circuitry-forge</h1>
+
 <p align="center">
-  <img src="https://raw.githubusercontent.com/circuitrylabs/circuitry-forge/main/docs/assets/banner.svg" alt="circuitry-forge" width="100%">
-  <br>
   <em>The first self-improving AI safety evaluation ecosystem that gets smarter every day</em>
 </p>
 
@@ -11,9 +11,6 @@
   <a href="#"><img src="https://img.shields.io/badge/coverage-75%25+-brightgreen?style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/circuitrylabs/circuitry-forge/main/docs/assets/demo.gif" alt="Demo" width="600">
-</p>
 
 ## 🎯 What This Does
 
@@ -32,11 +29,10 @@
 ## ⚡ Quick Start
 
 ```bash
-# See the magic in 30 seconds - no install required
-npx circuitry-forge@latest demo
-
-# Or if you have UV installed:
-uvx scenario-forge generate "ai_psychosis" --demo
+# Quick demo with UV (recommended)
+git clone https://github.com/circuitrylabs/circuitry-forge.git
+cd circuitry-forge
+uv run scenario-forge generate "ai_psychosis" --save
 ```
 
 ## 🚀 The Strangeloop in Action
@@ -82,20 +78,16 @@ uv run scenario-forge export --min-rating 2 > training_data.json
   <em>Join leading AI safety researchers worldwide</em>
 </p>
 
-> "This changed how we approach AI safety evaluation" - AI Safety Researcher
-> 
-> "The self-improvement loop is genius" - ML Engineer
-> 
-> "Finally, safety testing that scales" - Tech Lead
+Join the growing community of AI safety researchers using circuitry-forge to build safer AI systems.
 
 ## 📚 Documentation
 
 | I want to... | Start here |
 |-------------|------------|
-| 🎮 See it work | [Interactive Demo](https://circuitrylabs.org/demo) |
+| 🎮 See it work | `uv run scenario-forge generate "example" --save` |
 | 🧠 Understand concepts | [How It Works](docs/SCENARIO_FORGE_CORE.md) |
 | 🔧 Build with it | [API Reference](docs/ARCHITECTURE.md) |
-| 🤝 Contribute | [Development Guide](CONTRIBUTING.md) |
+| 🤝 Contribute | [GitHub Issues](https://github.com/circuitrylabs/circuitry-forge/issues) |
 | 🚀 See the roadmap | [Mission & Vision](docs/MISSION_VISION.md) |
 
 ## 🏗️ Architecture
@@ -173,10 +165,9 @@ MIT License - see [LICENSE](LICENSE)
 
 ## 💬 Community
 
-- 🌐 [Website](https://circuitrylabs.org)
-- 💬 [Discord](https://discord.gg/circuitrylabs)
-- 🐦 [Twitter](https://twitter.com/circuitrylabs)
-- 📧 [Email](mailto:hello@circuitrylabs.org)
+- 📦 [GitHub Repository](https://github.com/circuitrylabs/circuitry-forge)
+- 🐛 [Issues & Feedback](https://github.com/circuitrylabs/circuitry-forge/issues)
+- 📖 [Documentation](https://github.com/circuitrylabs/circuitry-forge/tree/main/docs)
 
 ---
 
@@ -184,5 +175,5 @@ MIT License - see [LICENSE](LICENSE)
   <strong>Together, we make AI safe for everyone.</strong>
   <br>
   <br>
-  Built with ❤️ by <a href="https://circuitrylabs.org">Circuitry Labs</a>
+  Built with ❤️ by the Circuitry Labs team
 </p>
