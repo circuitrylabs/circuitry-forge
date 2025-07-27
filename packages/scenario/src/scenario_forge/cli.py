@@ -119,7 +119,12 @@ def review():
 
 
 @cli.command()
-@click.option("--format", default="json", help="Export format (currently only json)")
+@click.option(
+    "--format",
+    type=click.Choice(["json", "dpo", "jsonl"]),
+    default="json",
+    help="Export format (json, dpo for training data, jsonl)",
+)
 @click.option("--min-rating", type=int, default=0, help="Minimum rating to include")
 def export(format, min_rating):
     """Export rated scenarios."""
@@ -130,13 +135,29 @@ def export(format, min_rating):
         click.echo(f"No scenarios found with rating >= {min_rating}")
         return
 
-    # For RC1, only support JSON
-    if format != "json":
-        click.echo("Only JSON format is supported in RC1")
-        return
+    if format == "json":
+        # Output as JSON array (original behavior)
+        print(json.dumps(scenarios, indent=2))
+    elif format in ["dpo", "jsonl"]:
+        # Import the DPO exporter
+        from scenario_forge.exporters import (
+            export_dpo_format,
+            export_conversational,
+            export_jsonl,
+        )
 
-    # Output as JSON array
-    print(json.dumps(scenarios, indent=2))
+        # Convert to training format
+        training_data = export_dpo_format(scenarios)
+
+        # Output in appropriate format
+        if format == "dpo":
+            # Conversational format for DPO
+            output = export_conversational(training_data)
+        else:
+            # JSONL format
+            output = export_jsonl(training_data)
+
+        print(output)
 
 
 if __name__ == "__main__":

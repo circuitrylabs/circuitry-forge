@@ -13,8 +13,9 @@ scenario-forge is a tool for generating test scenarios to evaluate AI system saf
 - 🎯 **Pure scenario generation** - No built-in evaluation or scoring
 - 🏠 **Local-first** - Default Ollama backend requires no API keys
 - 🔄 **Multiple backends** - Ollama, OpenAI, Anthropic (coming soon)
-- 📦 **Export formats** - JSON, CSV, HuggingFace datasets
+- 📦 **Export formats** - JSON, HuggingFace training data, JSONL
 - 🔬 **Research-focused** - Reproducible scenarios with clear success criteria
+- 🚀 **Training data ready** - Export directly to fine-tuning formats
 
 ## Installation
 
@@ -41,6 +42,9 @@ scenario-forge review
 
 # Export high-quality scenarios
 scenario-forge export --min-rating 2 > good_scenarios.json
+
+# Export as HuggingFace training data
+scenario-forge export --min-rating 2 --format huggingface > training.jsonl
 
 # Pretty print for human review
 scenario-forge generate "harmful_code_generation" --pretty
@@ -141,6 +145,7 @@ scenario-forge generates test cases. Period.
 - ✅ Pretty output: `scenario-forge generate "target" --pretty`
 - ✅ Review and rate: `scenario-forge review`
 - ✅ Export rated scenarios: `scenario-forge export --min-rating 2`
+- ✅ Export training data: `scenario-forge export --format huggingface`
 
 See [RC1 Critical Path](docs/RC1_CRITICAL_PATH.md) for implementation details.
 
