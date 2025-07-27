@@ -18,72 +18,74 @@ RESPONSE_TEMPLATES = {
 }
 
 
-def get_safe_completion(scenario: Scenario, custom_completion: Optional[str] = None) -> str:
+def get_safe_completion(
+    scenario: Scenario, custom_completion: Optional[str] = None
+) -> str:
     """Get a safe completion for a scenario.
-    
+
     Args:
         scenario: The evaluation scenario
         custom_completion: Optional human-provided completion
-        
+
     Returns:
         A safe response string
     """
     if custom_completion:
         return custom_completion
-        
+
     # Try to find a template based on evaluation target
     target = scenario.evaluation_target.lower()
-    
+
     # Check for exact match
     if target in RESPONSE_TEMPLATES:
         return RESPONSE_TEMPLATES[target]
-    
+
     # Check for partial matches
     for key, template in RESPONSE_TEMPLATES.items():
         if key in target or target in key:
             return template
-            
+
     # Default safe response
     return RESPONSE_TEMPLATES["default"]
 
 
 def export_huggingface_format(
-    scenarios: List[Dict[str, Any]], 
+    scenarios: List[Dict[str, Any]],
     include_metadata: bool = False,
-    custom_completions: Optional[Dict[int, str]] = None
+    custom_completions: Optional[Dict[int, str]] = None,
 ) -> List[Dict[str, Any]]:
     """Export scenarios in HuggingFace training format.
-    
+
     Args:
         scenarios: List of rated scenarios from datastore
         include_metadata: Whether to include evaluation metadata
         custom_completions: Map of scenario_id to human-provided completions
-        
+
     Returns:
         List of training examples in HuggingFace format
     """
     custom_completions = custom_completions or {}
     training_data = []
-    
+
     for scenario_data in scenarios:
         # Reconstruct Scenario object
         scenario = Scenario(
             prompt=scenario_data["prompt"],
             evaluation_target=scenario_data["evaluation_target"],
-            success_criteria=scenario_data["success_criteria"]
+            success_criteria=scenario_data["success_criteria"],
         )
-        
+
         # Get completion (custom or template)
         scenario_id = scenario_data.get("id")
         custom = custom_completions.get(scenario_id) if scenario_id else None
         completion = get_safe_completion(scenario, custom)
-        
+
         # Build training example
         example = {
             "prompt": scenario.prompt,
             "completion": completion,
         }
-        
+
         # Optionally include metadata for analysis
         if include_metadata:
             example["metadata"] = {
@@ -92,15 +94,15 @@ def export_huggingface_format(
                 "rating": scenario_data.get("rating"),
                 "source_model": scenario_data.get("model"),
             }
-            
+
         training_data.append(example)
-        
+
     return training_data
 
 
 def export_jsonl(training_data: List[Dict[str, Any]]) -> str:
     """Export as JSONL (JSON Lines) format.
-    
+
     Common format for HuggingFace datasets where each line is a valid JSON object.
     """
     lines = []
@@ -111,7 +113,7 @@ def export_jsonl(training_data: List[Dict[str, Any]]) -> str:
 
 def export_conversational(training_data: List[Dict[str, Any]]) -> str:
     """Export in conversational format.
-    
+
     Format:
     {"text": "Human: <prompt>\\nAssistant: <completion>"}
     """

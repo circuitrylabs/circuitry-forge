@@ -120,10 +120,10 @@ def review():
 
 @cli.command()
 @click.option(
-    "--format", 
-    type=click.Choice(["json", "huggingface", "jsonl"]), 
-    default="json", 
-    help="Export format (json, huggingface for training data, jsonl)"
+    "--format",
+    type=click.Choice(["json", "huggingface", "jsonl"]),
+    default="json",
+    help="Export format (json, huggingface for training data, jsonl)",
 )
 @click.option("--min-rating", type=int, default=0, help="Minimum rating to include")
 def export(format, min_rating):
@@ -141,10 +141,10 @@ def export(format, min_rating):
     elif format in ["huggingface", "jsonl"]:
         # Import the HuggingFace exporter
         from scenario_forge.exporters import huggingface
-        
+
         # Convert to training format
         training_data = huggingface.export_huggingface_format(scenarios)
-        
+
         # Output in appropriate format
         if format == "huggingface":
             # Conversational format for HuggingFace
@@ -152,7 +152,7 @@ def export(format, min_rating):
         else:
             # JSONL format
             output = huggingface.export_jsonl(training_data)
-            
+
         print(output)
 
 
