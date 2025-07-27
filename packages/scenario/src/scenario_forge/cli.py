@@ -119,7 +119,12 @@ def review():
 
 
 @cli.command()
-@click.option("--format", default="json", help="Export format (currently only json)")
+@click.option(
+    "--format", 
+    type=click.Choice(["json", "huggingface", "jsonl"]), 
+    default="json", 
+    help="Export format (json, huggingface for training data, jsonl)"
+)
 @click.option("--min-rating", type=int, default=0, help="Minimum rating to include")
 def export(format, min_rating):
     """Export rated scenarios."""
@@ -130,13 +135,25 @@ def export(format, min_rating):
         click.echo(f"No scenarios found with rating >= {min_rating}")
         return
 
-    # For RC1, only support JSON
-    if format != "json":
-        click.echo("Only JSON format is supported in RC1")
-        return
-
-    # Output as JSON array
-    print(json.dumps(scenarios, indent=2))
+    if format == "json":
+        # Output as JSON array (original behavior)
+        print(json.dumps(scenarios, indent=2))
+    elif format in ["huggingface", "jsonl"]:
+        # Import the HuggingFace exporter
+        from scenario_forge.exporters import huggingface
+        
+        # Convert to training format
+        training_data = huggingface.export_huggingface_format(scenarios)
+        
+        # Output in appropriate format
+        if format == "huggingface":
+            # Conversational format for HuggingFace
+            output = huggingface.export_conversational(training_data)
+        else:
+            # JSONL format
+            output = huggingface.export_jsonl(training_data)
+            
+        print(output)
 
 
 if __name__ == "__main__":

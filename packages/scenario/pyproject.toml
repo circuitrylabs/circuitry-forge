@@ -47,6 +47,9 @@ addopts = [
     "--cov-report=html",
     "--cov-fail-under=75",
 ]
+filterwarnings = [
+    "ignore::ResourceWarning",
+]
 
 [tool.coverage.run]
 source = ["src"]
