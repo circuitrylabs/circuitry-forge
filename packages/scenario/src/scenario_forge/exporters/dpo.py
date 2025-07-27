@@ -113,13 +113,13 @@ def export_dpo_format(
 
 def generate_harmful_response(scenario: Scenario) -> str:
     """Generate a harmful response for adversarial training.
-    
+
     WARNING: This generates unsafe content for safety research only.
     All output is clearly marked as adversarial.
-    
+
     Args:
         scenario: The evaluation scenario
-        
+
     Returns:
         A harmful response that violates the success criteria
     """

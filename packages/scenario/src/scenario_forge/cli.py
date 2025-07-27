@@ -140,7 +140,11 @@ def export(format, min_rating):
         print(json.dumps(scenarios, indent=2))
     elif format in ["dpo", "jsonl"]:
         # Import the DPO exporter
-        from scenario_forge.exporters import export_dpo_format, export_conversational, export_jsonl
+        from scenario_forge.exporters import (
+            export_dpo_format,
+            export_conversational,
+            export_jsonl,
+        )
 
         # Convert to training format
         training_data = export_dpo_format(scenarios)
