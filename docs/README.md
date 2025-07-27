@@ -22,14 +22,21 @@
 ### 🔨 [MODEL_FORGE_BOOTSTRAP.md](MODEL_FORGE_BOOTSTRAP.md)
 **Sister project** - Plans for the fine-tuning companion.
 
-## Legacy Docs (Archived)
+## Research & Background
 
-These have been merged into SCENARIO_FORGE_CORE.md:
-- ~~VISION.md~~ → See "Mission" section
-- ~~VISION_FEEDBACK_LOOP.md~~ → See "The Strangeloop" section  
-- ~~PROJECT_COHERENCE.md~~ → See "Key Principles" section
-- ~~IMPLEMENTATION_PLAN.md~~ → See MVP_PLAN.md
+### 🔬 [research/](research/)
+**Our north star** - AI Safety and Interpretability research that guides our long-term vision. Distilled from comprehensive academic surveys to ensure our tools evolve toward the most impactful safety challenges.
+
+### 📚 [TRAINING_FORMATS_RESEARCH.md](TRAINING_FORMATS_RESEARCH.md)
+**Training data formats** - Research on various formats for AI safety training data.
+
+## Archive
+
+Historical documents preserved in `archive/` for reference:
+- Early vision documents
+- Initial implementation plans
+- Original project coherence notes
 
 ---
 
-*For MVP 0.0 development, focus on SCENARIO_FORGE_CORE.md + MVP_PLAN.md*
+*For post-RC1 development, see MVP_PLAN.md for next phase priorities*
