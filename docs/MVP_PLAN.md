@@ -1,33 +1,34 @@
-# MVP 0.0 Plan: Ship the Core Loop
+# Post-RC1 Development Plan
 
-## Goal
-Working scenario generation → storage → export → feedback loop foundation
+## RC1 Complete ✅
+Working scenario generation → storage → export → feedback loop foundation shipped in v0.1.0-rc1
 
-## Current Status ✅
+## RC1 Features Delivered
 - Core Scenario class
 - Ollama backend working
 - CLI with --save flag
 - SQLite datastore
 - Test coverage
+- JSON/CSV export
+- Review system with ratings
+- List command
 
-## Next 5 Tasks (Priority Order)
+## Next Development Phase
 
-### 1. JSON Export Command
-```bash
-scenario-forge export --format json
-scenario-forge export --format json --target ai_psychosis
-scenario-forge export --format json --min-rating 0.8
-```
-- Export all or filtered scenarios
-- Include metadata (backend, model, timestamp)
-- Output to stdout or --output file.json
+### 1. OpenAI Backend
+- Add OpenAI API support for users who prefer it
+- Maintain Ollama as default (local-first)
+- Configuration via environment variables
 
-### 2. List Command
-```bash
-scenario-forge list
-scenario-forge list --target ai_psychosis
-scenario-forge list --limit 10
-```
+### 2. HuggingFace Export Format
+- Export scenarios in HF dataset format
+- Enable direct upload to HF Hub
+- Support for DPO/adversarial training formats
+
+### 3. Advanced Filtering
+- Export by date range
+- Export by model/backend used
+- Complex rating queries
 - Show saved scenarios
 - Basic filtering
 - Pretty table output

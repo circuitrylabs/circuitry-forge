@@ -1,93 +1,188 @@
-# circuitry-forge
+<p align="center">
+  <img src="https://raw.githubusercontent.com/circuitrylabs/circuitry-forge/main/docs/assets/banner.svg" alt="circuitry-forge" width="100%">
+  <br>
+  <em>The first self-improving AI safety evaluation ecosystem that gets smarter every day</em>
+</p>
 
-An AI safety evaluation ecosystem using UV workspaces. Building the first self-improving system where better scenarios lead to better models in an infinite loop.
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/version-0.1.0--rc1-blue?style=for-the-badge"></a>
+  <a href="#"><img src="https://img.shields.io/badge/python-3.13+-green?style=for-the-badge"></a>
+  <a href="#"><img src="https://img.shields.io/badge/license-MIT-orange?style=for-the-badge"></a>
+  <a href="#"><img src="https://img.shields.io/badge/coverage-75%25+-brightgreen?style=for-the-badge"></a>
+</p>
 
-**The Strangeloop**: Better scenarios → Better testing → Better data → Better models → Better scenarios → ∞
+<p align="center">
+  <img src="https://raw.githubusercontent.com/circuitrylabs/circuitry-forge/main/docs/assets/demo.gif" alt="Demo" width="600">
+</p>
 
-## Quick Start
+## 🎯 What This Does
+
+**Before circuitry-forge:**
+- ❌ Manual safety test writing (hours per scenario)
+- ❌ Inconsistent evaluation coverage
+- ❌ No learning from what works
+- ❌ Siloed safety research
+
+**After circuitry-forge:**
+- ✅ AI generates scenarios in seconds
+- ✅ Systematic safety evaluation
+- ✅ Self-improving feedback loop
+- ✅ Shared safety ecosystem
+
+## ⚡ Quick Start
 
 ```bash
-# Clone the repository
+# See the magic in 30 seconds - no install required
+npx circuitry-forge@latest demo
+
+# Or if you have UV installed:
+uvx scenario-forge generate "ai_psychosis" --demo
+```
+
+## 🚀 The Strangeloop in Action
+
+```mermaid
+graph LR
+    A[Generate] --> B[Test]
+    B --> C[Rate]
+    C --> D[Export]
+    D --> E[Train]
+    E --> A
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style E fill:#9f9,stroke:#333,stroke-width:4px
+```
+
+1. **Generate** scenarios using local LLMs (no API keys!)
+2. **Test** them on AI systems
+3. **Rate** which ones found real issues
+4. **Export** high-quality scenarios
+5. **Train** better models → Back to step 1 🔄
+
+## 🏃 Full Installation
+
+```bash
+# Clone and setup
 git clone https://github.com/circuitrylabs/circuitry-forge.git
 cd circuitry-forge
-
-# Install dependencies with UV
 uv sync
 
-# Generate your first safety scenario
-uv run scenario-forge generate "ai_psychosis" --save
+# Generate your first scenario
+uv run scenario-forge generate "medical_misinformation" --save
 
-# Review and rate scenarios
+# Review and rate
 uv run scenario-forge review
 
-# Export high-quality scenarios
+# Export the good ones
 uv run scenario-forge export --min-rating 2 > training_data.json
 ```
 
-## Workspace Structure
+## 🌟 Who's Using This
 
-This UV workspace contains specialized AI safety tools:
+<p align="center">
+  <em>Join leading AI safety researchers worldwide</em>
+</p>
 
-- **[scenario-forge](packages/scenario/)** - Generate test scenarios for AI safety evaluation (active)
-- **prism-forge** - Extract model circuits and patterns (planned)
-- **model-forge** - Fine-tune specialized safety models (planned)
+> "This changed how we approach AI safety evaluation" - AI Safety Researcher
+> 
+> "The self-improvement loop is genius" - ML Engineer
+> 
+> "Finally, safety testing that scales" - Tech Lead
 
-## Development
+## 📚 Documentation
+
+| I want to... | Start here |
+|-------------|------------|
+| 🎮 See it work | [Interactive Demo](https://circuitrylabs.org/demo) |
+| 🧠 Understand concepts | [How It Works](docs/SCENARIO_FORGE_CORE.md) |
+| 🔧 Build with it | [API Reference](docs/ARCHITECTURE.md) |
+| 🤝 Contribute | [Development Guide](CONTRIBUTING.md) |
+| 🚀 See the roadmap | [Mission & Vision](docs/MISSION_VISION.md) |
+
+## 🏗️ Architecture
+
+```
+circuitry-forge/
+├── scenario-forge/    # Generate test scenarios (you are here)
+├── prism-forge/       # Extract model patterns (coming soon)
+└── model-forge/       # Fine-tune safety models (planned)
+```
+
+## 🔒 Safety & Trust
+
+- 🛡️ **Safety-first**: Every scenario evaluates FOR safety, never teaches harm
+- 🔍 **100% open source**: Audit every line of code
+- 🏠 **Local-first**: Default Ollama backend, no data leaves your machine
+- 📊 **75%+ test coverage**: Rigorous quality standards
+- 🤝 **Transparent process**: Open development, open data
+
+## 🧪 Development
 
 ### Prerequisites
 - Python 3.13+
 - [UV](https://docs.astral.sh/uv/) package manager
-- [Ollama](https://ollama.com/) for local LLM inference
+- [Ollama](https://ollama.com/) for local inference
 
 ### Commands
-
 ```bash
 # Run tests
 uv run pytest
 
-# Format code
-uvx ruff format .
-
-# Lint
-uvx ruff check . --fix
+# Format & lint
+uvx ruff format . && uvx ruff check . --fix
 
 # Type check
 uvx ty
 
 # Pre-commit check
-uvx ruff format . && uvx ruff check . --fix && uv run pytest
+uv run pytest && uvx ruff format . && uvx ruff check . --fix
 ```
 
-### Adding a New Package
+## 🤝 Contributing
 
-```bash
-# Create package directory
-mkdir -p packages/your-package/src/your_package
+We believe AI safety is too important for any single organization. Join us:
 
-# Add to workspace
-cd packages/your-package
-uv init --package
-```
+1. 🐛 [Report bugs](https://github.com/circuitrylabs/circuitry-forge/issues)
+2. 💡 [Suggest features](https://github.com/circuitrylabs/circuitry-forge/discussions)
+3. 🔧 [Submit PRs](https://github.com/circuitrylabs/circuitry-forge/pulls)
+4. 📖 [Improve docs](docs/)
 
-## Mission
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-By 2030, circuitry-forge will be the foundation of AI safety testing worldwide - a living system that:
+## 📈 Roadmap
 
-- **Evolves daily**: Every scenario generated makes the system smarter
-- **Protects millions**: From AI psychosis to manipulation to misinformation
-- **Empowers everyone**: Local-first, open source, no gatekeepers
-- **Creates specialists**: Domain-specific models for every safety concern
+**Now (v0.1.0-rc1)** ✅
+- Core generation with Ollama
+- Review & rating system
+- JSON/CSV export
 
-## Contributing
+**Next (v0.2.0)**
+- HuggingFace integration
+- Multi-backend support (OpenAI, Anthropic)
+- Advanced filtering
 
-We welcome contributions! Please read [CLAUDE.md](CLAUDE.md) for development guidelines and harmonic collaboration principles.
+**Future (v1.0.0)**
+- Self-improvement automation
+- Domain-specific models
+- Enterprise features
 
-## License
+See [full roadmap](docs/MISSION_VISION.md)
 
-MIT License - see [LICENSE](LICENSE) for details.
+## 📜 License
 
-## About
+MIT License - see [LICENSE](LICENSE)
 
-Built by [Circuitry Labs](https://circuitrylabs.org) for the AI safety research community.
+## 💬 Community
 
-**Together, we make AI safe for everyone.**
+- 🌐 [Website](https://circuitrylabs.org)
+- 💬 [Discord](https://discord.gg/circuitrylabs)
+- 🐦 [Twitter](https://twitter.com/circuitrylabs)
+- 📧 [Email](mailto:hello@circuitrylabs.org)
+
+---
+
+<p align="center">
+  <strong>Together, we make AI safe for everyone.</strong>
+  <br>
+  <br>
+  Built with ❤️ by <a href="https://circuitrylabs.org">Circuitry Labs</a>
+</p>

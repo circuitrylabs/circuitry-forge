@@ -36,7 +36,7 @@ User                                         SQLite   JSON/CSV
 3. Scenario saved to SQLite if --save flag
 4. Export for testing/sharing
 
-## MVP 0.0 Scope (NOW)
+## RC1 Status (Current)
 
 ### What We Have
 - ✅ Core generation with Ollama
